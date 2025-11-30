@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin – Session detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Session: {{ training.naam_display }}</h1>
+        <div>
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary btn-sm">Back to admin</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Logout</a>
+        </div>
+    </div>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ msg }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="row">
+        <div class="col-md-7">
+            <h3>Participants ({{ participants|length }}/{{ training.limiet }})</h3>
+            <table class="table table-sm table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th style="width: 100px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if participants %}
+                    {% for p in participants %}
+                    <tr>
+                        <td>{{ p.naam }}</td>
+                        <td>{{ p.email }}</td>
+                        <td>
+                            <a href="{{ url_for('admin_kick', registration_id=p.id) }}"
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Remove this participant?');">
+                                Remove
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="3" class="text-muted">No participants yet.</td></tr>
+                {% endif %}
+                </tbody>
+            </table>
+
+            <h3 class="mt-4">Waitlist ({{ waitlist|length }})</h3>
+            <table class="table table-sm table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th style="width: 100px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if waitlist %}
+                    {% for w in waitlist %}
+                    <tr>
+                        <td>{{ w.naam }}</td>
+                        <td>{{ w.email }}</td>
+                        <td>
+                            <a href="{{ url_for('admin_kick', registration_id=w.id) }}"
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Remove this waitlist entry?');">
+                                Remove
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="3" class="text-muted">No one on the waitlist.</td></tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-5">
+            <h3>Add attendee</h3>
+            <form method="post" action="{{ url_for('admin_add_registration', training_id=training.id) }}" class="card card-body">
+                <div class="mb-2">
+                    <label class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Type</label>
+                    <select name="role" class="form-select">
+                        <option value="participant">Participant</option>
+                        <option value="waitlist">Waitlist</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success mt-2">Add</button>
+            </form>
+
+            <div class="mt-4">
+                <h5>Session info</h5>
+                <p>
+                    <strong>Date key:</strong> {{ training.datum_sleutel }}<br>
+                    <strong>Opens at:</strong> {{ training.open_vanaf.strftime('%Y-%m-%d %H:%M') }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
