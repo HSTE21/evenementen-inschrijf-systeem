@@ -10,11 +10,6 @@ Een eenvoudig, lichtgewicht webportaal voor verenigingen om inschrijvingen voor 
 *   🔄 **Automatische Promotie**: Als iemand zich uitschrijft, wordt de eerste persoon op de wachtlijst automatisch ingeschreven en gemaild.
 *   🔐 **Admin Dashboard**: Beveiligd gedeelte om deelnemerslijsten te bekijken en nieuwe events aan te maken.
 
-## Screenshots
-
-![Home view](screenshots/screenshot-home.png)
-![Training detail](screenshots/screenshot-admin-training-detail.png)
-![Admin overzicht](screenshots/screenshot-admin.png)
 
 ## Installatie
 
@@ -48,6 +43,12 @@ Een eenvoudig, lichtgewicht webportaal voor verenigingen om inschrijvingen voor 
 
 *   Bezoek `http://127.0.0.1:5000` om de evenementenlijst te zien.
 *   Bezoek `http://127.0.0.1:5000/admin` om evenementen te beheren.
+
+## Screenshots
+
+![Home view](screenshots/screenshot-home.png)
+![Training detail](screenshots/screenshot-admin-training-detail.png)
+![Admin overzicht](screenshots/screenshot-admin.png)
 
 ## Deployen op PythonAnywhere (Gratis)
 
