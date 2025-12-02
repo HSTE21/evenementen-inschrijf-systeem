@@ -1,4 +1,4 @@
-# Vereniging Inschrijf Systeem
+# evenementen-inschrijf-systeem
 
 Een eenvoudig, lichtgewicht webportaal voor verenigingen om inschrijvingen voor evenementen, trainingen of borrels te beheren. Gebouwd met Python en Flask.
 
